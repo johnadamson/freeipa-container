@@ -1,0 +1,18 @@
+version: '2.1'
+services:
+  ipa:
+    environment:
+      DEBUG_TRACE: 1
+      DEBUG_NO_EXIT: 1
+    build:
+      context: .
+      dockerfile: Dockerfile.centos-7
+    sysctls: 
+      - net.ipv6.conf.all.disable_ipv6=0
+    volumes:
+      - ./ipa-data:/data:Z
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    hostname: ipa
+    domainname: example.test
+    stop_signal: RTMIN+3
+    # tty: true
